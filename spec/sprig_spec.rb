@@ -2,6 +2,15 @@ require 'spec_helper'
 require 'open-uri'
 
 describe "Seeding an application" do
+  let(:missing_record_error) do
+    case Post
+    when ActiveRecord::Base
+      ActiveRecord::RecordNotFound
+    when Mongoid::Document
+      Mongoid::Errors::DocumentNotFound
+    end
+  end
+
   before do
     stub_rails_root
   end
@@ -327,7 +336,7 @@ describe "Seeding an application" do
 
           expect {
             existing_match.reload
-          }.to raise_error(ActiveRecord::RecordNotFound)
+          }.to raise_error(missing_record_error)
 
           expect {
             existing_nonmatch.reload

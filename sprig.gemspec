@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_development_dependency "rails",            "~> 3.1"
-  s.add_development_dependency "sqlite3",          "~> 1.3.8"
   s.add_development_dependency "rspec",            "~> 2.14.0"
   s.add_development_dependency "database_cleaner", "~> 1.2.0"
   s.add_development_dependency "webmock",          "~> 1.15.0"
