@@ -1,3 +1,5 @@
+require 'mongoid'
+
 class Tag
   include Mongoid::Document
 

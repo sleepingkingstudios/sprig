@@ -1,3 +1,5 @@
+require 'mongoid'
+
 class Comment
   include Mongoid::Document
 

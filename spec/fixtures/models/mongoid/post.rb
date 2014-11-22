@@ -1,3 +1,5 @@
+require 'mongoid'
+
 class Post
   include Mongoid::Document
 

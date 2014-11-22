@@ -1,3 +1,6 @@
+# Require model files.
+Dir[File.dirname(__FILE__) + "/fixtures/models/active_record/*.rb"].each {|file| require file}
+
 # RSpec
 
 require "database_cleaner"

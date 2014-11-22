@@ -7,7 +7,6 @@ SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start "rails"
 
 require "rails"
-require "active_record"
 require "webmock"
 require "vcr"
 require "pry"
