@@ -3,3 +3,6 @@ script: "bundle exec rspec"
 rvm:
   - 1.9.3
   - 2.0.0
+gemfile:
+  - gemfiles/mongoid_4.gemfile
+  - gemfiles/activerecord_3_sqlite.gemfile

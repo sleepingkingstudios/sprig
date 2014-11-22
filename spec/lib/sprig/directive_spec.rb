@@ -27,6 +27,15 @@ describe Sprig::Directive do
     end
 
     context "given options without a class" do
+      let(:orm_model) do
+        case Sprig.adapter
+        when :active_record
+          'ActiveRecord::Base'
+        when :mongoid
+          'Mongoid::Document'
+        end
+      end
+
       subject { described_class.new(:source => 'source') }
 
       it "raises and argument error" do
@@ -34,8 +43,8 @@ describe Sprig::Directive do
           subject.klass
         }.to raise_error(
           ArgumentError,
-          'Sprig::Directive must be instantiated with an '\
-          'ActiveRecord subclass or a Hash with :class defined'
+          'Sprig::Directive must be instantiated with a(n) '\
+          "#{orm_model} class or a Hash with :class defined"
         )
       end
     end
