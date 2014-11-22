@@ -12,6 +12,7 @@ require "webmock"
 require "vcr"
 require "pry"
 require "generator_spec"
+require 'open-uri'
 
 require "sprig"
 include Sprig::Helpers
@@ -25,6 +26,10 @@ RSpec.configure do |c|
   c.after(:each) do
     Sprig.reset_configuration
   end
+
+  c.before(:each, :type => :integration) do
+    stub_rails_root
+  end
 end
 
 VCR.configure do |c|
@@ -33,27 +38,24 @@ VCR.configure do |c|
   c.hook_into :webmock
 end
 
-# Identify ORM/ODM.
-orm = nil
-
 # ActiveRecord (via SQlite3)
 begin
   require 'sqlite3'
 
-  orm = :active_record
+  Sprig.adapter = :active_record
 rescue LoadError; end
 
 # Mongoid
 begin
   require 'mongoid'
 
-  orm = :mongoid
+  Sprig.adapter = :mongoid
 rescue LoadError; end
 
 # Require model files.
-Dir[File.dirname(__FILE__) + "/fixtures/models/#{orm}/*.rb"].each {|file| require file}
+Dir[File.dirname(__FILE__) + "/fixtures/models/#{Sprig.adapter}/*.rb"].each {|file| require file}
 
-require "orm/#{orm}.rb"
+require "orm/#{Sprig.adapter}.rb"
 
 # Helpers
 #
