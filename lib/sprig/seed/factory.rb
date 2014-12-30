@@ -19,7 +19,14 @@ module Sprig
 
       def add_seeds_to_hopper(hopper)
         datasource.records.each do |record_data|
-          hopper << Entry.new(klass, record_data, options)
+          record_attrs, record_klass = record_data, klass
+
+          if record_data.key?(:klass)
+            record_attrs = record_attrs.dup
+            record_klass = record_attrs.delete(:klass).to_s.constantize
+          end
+
+          hopper << Entry.new(record_klass, record_attrs, options)
         end
       end
 
